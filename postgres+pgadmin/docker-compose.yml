@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+    postgres:
+        container_name: postgres
+        image: postgres
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER:-postgres}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+            PGDATA: /data/postgres
+        volumes:
+            - postgres:/data/postgres
+        ports:
+            - "5432:5432"
+        restart: unless-stopped
+        networks:
+            - postgres-network
+    pgadmin:
+        container_name: pgAdmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "admin@emersondantas.eti.br"
+            PGADMIN_DEFAULT_PASSWORD: "postgres"
+        ports:
+        - "16543:80"
+        depends_on:
+        - postgres
+        networks:
+        - postgres-network
+
+volumes:
+    postgres:
+
+networks: 
+    postgres-network:
+        driver: bridge
