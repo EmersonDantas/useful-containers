@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+    postgres-keycloak:
+        container_name: postgres-keycloak
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: 123Mudar
+            PGDATA: /data/postgres
+        volumes:
+            - postgres-keycloak:/data/postgres
+        ports:
+            - "5433:5432"
+        restart: unless-stopped
+        networks:
+            - postgres-keycloak-network
+
+    keycloak:
+        image: quay.io/keycloak/keycloak:latest
+        environment:
+            DB_VENDOR: POSTGRES
+            DB_ADDR: postgres-keycloak
+            DB_DATABASE: keycloak
+            DB_USER: postgres
+            DB_SCHEMA: public
+            DB_PASSWORD: 123Mudar
+            KEYCLOAK_USER: emerson
+            KEYCLOAK_PASSWORD: 123Mudar
+            # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+            #JDBC_PARAMS: "ssl=true"
+        ports:
+            - 8090:8080
+        depends_on:
+        - postgres-keycloak
+        networks:
+        - postgres-keycloak-network
+
+volumes:
+    postgres-keycloak:
+
+networks: 
+    postgres-keycloak-network:
+        driver: bridge
