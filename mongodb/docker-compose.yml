@@ -4,6 +4,8 @@ services:
   mongodb:
     image: mongo
     restart: always
+    ports:
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123Mudar
@@ -16,4 +18,4 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: 123Mudar
-      ME_CONFIG_MONGODB_URL: mongodb://root:123Mudar@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://root:123Mudar@mongodb:27017/
