@@ -32,6 +32,12 @@ Inicie o container letsencrypt em modo detached (background) com o comando:
 
     docker-compose up -d nginx-reverse-proxy
 
+Mudanças de configuração do nginx requerem os comandos abaixo para validar e reiniciar:
+
+    docker exec -it nginx-reverse-proxy nginx -t
+
+    docker exec -it nginx-reverse-proxy nginx -s reload
+
 ### Compilado dos artigos abaixo:
 
 - https://faun.pub/docker-letsencrypt-dns-validation-75ba8c08a0d
