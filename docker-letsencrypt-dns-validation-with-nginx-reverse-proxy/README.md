@@ -12,7 +12,7 @@ O docker-compose facilita a definição e execução de aplicações Docker mult
 
 Inicie o container letsencrypt em modo detached (background) com o comando:
 
-    docker-compose up letsencrypt -d
+    docker-compose up -d letsencrypt
 
 ### Configure o Provedor de DNS:
 
@@ -30,7 +30,7 @@ Inicie o container letsencrypt em modo detached (background) com o comando:
 
 2 - Inicie o Serviço Nginx Reverse Proxy: Com as configurações de proxy reverso ajustadas, inicie o container nginx-reverse-proxy em modo detached:
 
-    docker-compose up nginx-reverse-proxy -d
+    docker-compose up -d nginx-reverse-proxy
 
 ### Compilado dos artigos abaixo:
 
