@@ -1,0 +1,30 @@
+version: "3"
+services:
+  letsencrypt:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: letsencrypt
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - URL=emersondantas.eti.br
+      - SUBDOMAINS=www,tracy-td,api.tracy-td,api
+      - VALIDATION=dns
+      - DNSPLUGIN=route53
+      - EMAIL=me@emersondantas.eti.br
+      - DHLEVEL=4096
+    volumes:
+      - ./config-swag:/config
+    restart: unless-stopped
+
+  nginx-reverse-proxy:
+    container_name: nginx-reverse-proxy
+    hostname: nginx-reverse-proxy
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config-swag:/letsencrypt
+      - ./config:/etc/nginx
+      - ./create-symlinks.sh:/docker-entrypoint.d/create-symlinks.sh:ro
