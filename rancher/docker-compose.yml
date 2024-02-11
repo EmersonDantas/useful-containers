@@ -1,0 +1,14 @@
+version: "3"
+services:
+  rancher:
+    image: rancher/rancher:latest
+    container_name: rancher
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CATTLE_SYSTEM_CATALOG=bundled
+      - CATTLE_FEEDBACK_FORM=true
+      - CATTLE_UI_DASHBOARD_INDEX=experimental
