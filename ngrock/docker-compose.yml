@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  ngrok:
+    image: wernight/ngrok
+    ports:
+      - "4040:4040"
+    environment:
+      NGROK_AUTH: "token_de_autenticacao_ngrok"
+      NGROK_REGION: "us"
+    command: http your_service:port
